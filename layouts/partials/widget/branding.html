@@ -1,0 +1,31 @@
+<section class="widget branding">
+    <div class="branding-logo">
+        <a href="/" class="branding-logo" css="">
+            <div id="logoContainer"></div>
+        </a>
+    </div>
+</section>
+
+<script>
+    function updateLogo() {
+        const scheme = document.documentElement.dataset.scheme;
+        let logoContainer = document.getElementById('logoContainer');
+        let logoSrc;
+
+        if (scheme === 'dark') {
+            logoSrc = '{{ .Params.image_dark | safeJS }}';
+        } else {
+            logoSrc = '{{ .Params.image | safeJS }}';
+        }
+
+        logoContainer.innerHTML = `<img src="${logoSrc}" alt="kelvin-dot-id-logo" />`;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        updateLogo();
+    });
+
+    window.addEventListener('onColorSchemeChange', function(event) {
+        updateLogo();
+    });
+</script>
